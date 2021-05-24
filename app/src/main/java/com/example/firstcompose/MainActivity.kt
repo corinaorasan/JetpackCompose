@@ -5,11 +5,8 @@ import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.padding
-import androidx.compose.material.Divider
-import androidx.compose.material.MaterialTheme
-import androidx.compose.material.Surface
-import androidx.compose.material.Text
-import androidx.compose.runtime.Composable
+import androidx.compose.material.*
+import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
@@ -37,11 +34,25 @@ fun MyApp(content: @Composable () -> Unit) {
 }
 
 @Composable
-fun MyScreenContent(){
-    Column(){
-        Greeting(name = "Android")
-        Divider()
-        Greeting(name = "There")
+fun MyScreenContent(names: List<String> = listOf("Android", "There")) {
+    Column {
+        for (name: String in names) {
+            Greeting(name = name)
+            Divider()
+        }
+        Counter()
+        Counter()
+    }
+}
+
+@Composable
+fun Counter() {
+    var counter: Int by remember {
+        mutableStateOf(0)
+    }
+
+    Button(onClick = { counter++ }) {
+        Text(text = "I've been clicked $counter times")
     }
 }
 
