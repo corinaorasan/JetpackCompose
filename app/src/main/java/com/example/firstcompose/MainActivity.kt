@@ -12,6 +12,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.example.firstcompose.ui.theme.FirstComposeTheme
+import org.w3c.dom.NameList
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -35,18 +36,12 @@ fun MyApp(content: @Composable () -> Unit) {
 }
 
 @Composable
-fun MyScreenContent(names: List<String> = listOf("Android", "There")) {
+fun MyScreenContent(names: List<String> = List(1000) { "Hi, Android $it" }) {
     var counterState: Int by remember {
         mutableStateOf(0)
     }
-    Column(modifier=Modifier.fillMaxHeight()) {
-        Column(modifier = Modifier.weight(1f)) {
-            for (name: String in names) {
-                Greeting(name = name)
-                Divider()
-            }
-        }
-
+    Column(modifier = Modifier.fillMaxHeight()) {
+        NameList(names = names, modifier = Modifier.weight(1f))
         Counter(
             count = counterState,
             updateCount = { newCount: Int ->
@@ -57,6 +52,16 @@ fun MyScreenContent(names: List<String> = listOf("Android", "There")) {
 
         if (counterState > 5) {
             Text(text = " I love to count!")
+        }
+    }
+}
+
+@Composable
+fun NameList(names: List<String>, modifier: Modifier = Modifier) {
+    Column(modifier = modifier) {
+        for (name: String in names) {
+            Greeting(name = name)
+            Divider()
         }
     }
 }
