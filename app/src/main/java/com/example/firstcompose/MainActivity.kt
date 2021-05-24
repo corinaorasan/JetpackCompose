@@ -3,7 +3,9 @@ package com.example.firstcompose
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
+import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.padding
+import androidx.compose.material.Divider
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Surface
 import androidx.compose.material.Text
@@ -17,8 +19,8 @@ class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContent {
-            MyApp() {
-                Greeting("Android")
+            MyApp {
+                MyScreenContent()
             }
         }
     }
@@ -35,6 +37,15 @@ fun MyApp(content: @Composable () -> Unit) {
 }
 
 @Composable
+fun MyScreenContent(){
+    Column(){
+        Greeting(name = "Android")
+        Divider()
+        Greeting(name = "There")
+    }
+}
+
+@Composable
 fun Greeting(name: String) {
     Text(
         text = "Hello $name!",
@@ -47,6 +58,6 @@ fun Greeting(name: String) {
 @Composable
 fun DefaultPreview() {
     MyApp {
-        Greeting("Android")
+        MyScreenContent()
     }
 }
