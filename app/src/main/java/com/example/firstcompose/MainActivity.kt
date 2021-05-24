@@ -3,6 +3,8 @@ package com.example.firstcompose
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
+import androidx.compose.animation.animateColorAsState
+import androidx.compose.animation.core.tween
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxHeight
@@ -80,10 +82,13 @@ fun Counter(count: Int, updateCount: (Int) -> Unit) {
 
 @Composable
 fun Greeting(name: String) {
-    var isSelected:Boolean by remember {
+    var isSelected: Boolean by remember {
         mutableStateOf(false)
     }
-    val targetColor : Color = if (isSelected) Red else Transparent
+    val targetColor: Color by animateColorAsState(
+        targetValue = if (isSelected) Red else Transparent,
+        animationSpec = tween(durationMillis = 4000)
+    )
     Surface(color = targetColor) {
         Text(
             text = "Hello $name!",
