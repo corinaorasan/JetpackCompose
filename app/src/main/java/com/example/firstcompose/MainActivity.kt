@@ -4,6 +4,7 @@ import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material.*
 import androidx.compose.runtime.*
@@ -38,11 +39,14 @@ fun MyScreenContent(names: List<String> = listOf("Android", "There")) {
     var counterState: Int by remember {
         mutableStateOf(0)
     }
-    Column {
-        for (name: String in names) {
-            Greeting(name = name)
-            Divider()
+    Column(modifier=Modifier.fillMaxHeight()) {
+        Column(modifier = Modifier.weight(1f)) {
+            for (name: String in names) {
+                Greeting(name = name)
+                Divider()
+            }
         }
+
         Counter(
             count = counterState,
             updateCount = { newCount: Int ->
